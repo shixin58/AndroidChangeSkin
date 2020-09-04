@@ -11,9 +11,6 @@ import android.widget.ListView;
 import com.zhy.changeskin.ResourceManager;
 import com.zhy.changeskin.SkinManager;
 
-/**
- * Created by zhy on 15/9/28.
- */
 public enum SkinAttrType {
     BACKGROUND("background") {
         @Override

@@ -29,3 +29,6 @@ proguard/
 # OS generated files 
 .DS_Store  
 .DS_Store?
+
+.idea
+*.iml

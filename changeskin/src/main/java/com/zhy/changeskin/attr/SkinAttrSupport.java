@@ -27,8 +27,8 @@ public class SkinAttrSupport {
      * @param activity
      */
     public static List<SkinView> getSkinViews(Activity activity) {
-        List<SkinView> skinViews = new ArrayList<SkinView>();
-        ViewGroup content = (ViewGroup) activity.findViewById(android.R.id.content);
+        List<SkinView> skinViews = new ArrayList<>();
+        ViewGroup content = activity.findViewById(android.R.id.content);
         addSkinViews(content, skinViews);
         return skinViews;
     }

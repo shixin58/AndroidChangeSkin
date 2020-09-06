@@ -22,6 +22,8 @@ import com.nineoldandroids.view.ViewHelper;
 import com.zhy.changeskin.SkinManager;
 import com.zhy.changeskin.callback.ISkinChangingCallback;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,15 +68,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mDrawerLayout.setDrawerListener(new DrawerListener() {
+        mDrawerLayout.addDrawerListener(new DrawerListener() {
             @Override
             public void onDrawerStateChanged(int newState) {
             }
 
             @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                View mContent = mDrawerLayout.getChildAt(0);
-                View mMenu = drawerView;
+            public void onDrawerSlide(@NotNull View drawerView, float slideOffset) {
+                View content = mDrawerLayout.getChildAt(0);
+                View menu = drawerView;
                 float scale = 1 - slideOffset;
                 float rightScale = 0.8f + scale * 0.2f;
 
@@ -82,26 +84,25 @@ public class MainActivity extends AppCompatActivity {
 
                     float leftScale = 1 - 0.3f * scale;
 
-                    ViewHelper.setScaleX(mMenu, leftScale);
-                    ViewHelper.setScaleY(mMenu, leftScale);
-                    ViewHelper.setAlpha(mMenu, 0.6f + 0.4f * (1 - scale));
-                    ViewHelper.setTranslationX(mContent,
-                            mMenu.getMeasuredWidth() * (1 - scale));
-                    ViewHelper.setPivotX(mContent, 0);
-                    ViewHelper.setPivotY(mContent,
-                            mContent.getMeasuredHeight() / 2);
-                    mContent.invalidate();
-                    ViewHelper.setScaleX(mContent, rightScale);
-                    ViewHelper.setScaleY(mContent, rightScale);
+                    ViewHelper.setScaleX(menu, leftScale);
+                    ViewHelper.setScaleY(menu, leftScale);
+                    ViewHelper.setAlpha(menu, 0.6f + 0.4f * (1 - scale));
+
+                    ViewHelper.setTranslationX(content, menu.getMeasuredWidth() * (1 - scale));
+                    ViewHelper.setPivotX(content, 0);
+                    ViewHelper.setPivotY(content, content.getMeasuredHeight() / 2f);
+                    ViewHelper.setScaleX(content, rightScale);
+                    ViewHelper.setScaleY(content, rightScale);
+                    content.invalidate();
                 }
             }
 
             @Override
-            public void onDrawerOpened(View drawerView) {
+            public void onDrawerOpened(@NotNull View drawerView) {
             }
 
             @Override
-            public void onDrawerClosed(View drawerView) {
+            public void onDrawerClosed(@NotNull View drawerView) {
             }
         });
     }
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         int id = item.getItemId();
 
         switch (id) {

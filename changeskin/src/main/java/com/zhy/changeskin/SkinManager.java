@@ -16,6 +16,8 @@ import com.zhy.changeskin.callback.ISkinChangingCallback;
 import com.zhy.changeskin.utils.L;
 import com.zhy.changeskin.utils.PrefUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class SkinManager {
         return SingletonHolder.sInstance;
     }
 
-    public void init(Context context) {
+    public void init(@NotNull Context context) {
         mContext = context.getApplicationContext();
         mPrefUtils = new PrefUtils(mContext);
 
@@ -123,8 +125,6 @@ public class SkinManager {
 
     /**
      * 应用内换肤，传入资源区别的后缀
-     *
-     * @param suffix
      */
     public void changeSkin(String suffix) {
         clearPluginInfo();//clear before
@@ -157,11 +157,6 @@ public class SkinManager {
 
     /**
      * 根据suffix选择插件内某套皮肤，默认为""
-     *
-     * @param skinPluginPath
-     * @param skinPluginPkg
-     * @param suffix
-     * @param callback
      */
     public void changeSkin(final String skinPluginPath, final String skinPluginPkg, final String suffix, ISkinChangingCallback callback) {
         L.e("changeSkin = " + skinPluginPath + " , " + skinPluginPkg);
@@ -239,8 +234,6 @@ public class SkinManager {
 
     /**
      * apply for dynamic construct view
-     *
-     * @param view
      */
     public void injectSkin(View view) {
         List<SkinView> skinViews = new ArrayList<>();

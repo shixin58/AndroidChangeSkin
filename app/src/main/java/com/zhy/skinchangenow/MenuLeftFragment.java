@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.zhy.changeskin.SkinManager;
 import com.zhy.changeskin.callback.ISkinChangingCallback;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 
 public class MenuLeftFragment extends Fragment implements View.OnClickListener {
@@ -19,7 +21,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
     private View mInnerChange02;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_left_menu, container, false);
     }
 
@@ -68,7 +70,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
      * @param v The view that was clicked.
      */
     @Override
-    public void onClick(View v) {
+    public void onClick(@NotNull View v) {
         switch (v.getId()) {
             case R.id.id_rl_innerchange01:
                 SkinManager.getInstance().changeSkin("red");

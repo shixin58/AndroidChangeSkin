@@ -5,11 +5,13 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import com.zhy.changeskin.utils.L;
 
 public class ResourceManager {
-    private static final String DEFTYPE_DRAWABLE = "drawable";
-    private static final String DEFTYPE_COLOR = "color";
+    private static final String TYPE_DRAWABLE = "drawable";
+    private static final String TYPE_COLOR = "color";
     private Resources mResources;
     private String mPluginPackageName;
     private String mSuffix;
@@ -28,7 +30,8 @@ public class ResourceManager {
         try {
             name = appendSuffix(name);
             L.e("name = " + name + " , " + mPluginPackageName);
-            return mResources.getDrawable(mResources.getIdentifier(name, DEFTYPE_DRAWABLE, mPluginPackageName));
+            int id = mResources.getIdentifier(name, TYPE_DRAWABLE, mPluginPackageName);
+            return ResourcesCompat.getDrawable(mResources, id, null);
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
             return null;
@@ -38,14 +41,16 @@ public class ResourceManager {
     public int getColor(String name) throws Resources.NotFoundException {
         name = appendSuffix(name);
         L.e("name = " + name);
-        return mResources.getColor(mResources.getIdentifier(name, DEFTYPE_COLOR, mPluginPackageName));
+        int id = mResources.getIdentifier(name, TYPE_COLOR, mPluginPackageName);
+        return ResourcesCompat.getColor(mResources, id, null);
     }
 
     public ColorStateList getColorStateList(String name) {
         try {
             name = appendSuffix(name);
             L.e("name = " + name);
-            return mResources.getColorStateList(mResources.getIdentifier(name, DEFTYPE_COLOR, mPluginPackageName));
+            int id = mResources.getIdentifier(name, TYPE_COLOR, mPluginPackageName);
+            return ResourcesCompat.getColorStateList(mResources, id, null);
 
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();

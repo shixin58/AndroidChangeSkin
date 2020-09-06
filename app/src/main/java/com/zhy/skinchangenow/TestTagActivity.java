@@ -2,6 +2,8 @@ package com.zhy.skinchangenow;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zhy.changeskin.SkinManager;
+
+import org.jetbrains.annotations.NotNull;
 
 public class TestTagActivity extends AppCompatActivity {
 
@@ -24,7 +28,7 @@ public class TestTagActivity extends AppCompatActivity {
         //建议通过xml inflater
         TextView tv = new TextView(this);
         tv.setTag("skin:item_text_color:textColor");
-        tv.setTextColor(getResources().getColorStateList(R.color.item_text_color));
+        tv.setTextColor(AppCompatResources.getColorStateList(this, R.color.item_text_color));
         tv.setText("dymaic add!");
 
         ((ViewGroup) findViewById(R.id.id_container)).addView(tv);
@@ -45,7 +49,7 @@ public class TestTagActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.

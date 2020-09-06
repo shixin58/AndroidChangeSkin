@@ -26,6 +26,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'org.jetbrains:annotations-java5:15.0'
 }
 
 def siteUrl = 'https://github.com/hongyangAndroid/AndroidChangeSkin'                        // #CONFIG# // project homepage
@@ -66,7 +67,8 @@ install {
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
+    archiveClassifier.convention('sources')
+    archiveClassifier.set('sources')
 }
 
 task javadoc(type: Javadoc) {
@@ -75,7 +77,8 @@ task javadoc(type: Javadoc) {
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
+    archiveClassifier.convention('javadoc')
+    archiveClassifier.set('javadoc')
     from javadoc.destinationDir
 }
 

@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import com.zhy.changeskin.R;
 import com.zhy.changeskin.constant.SkinConfig;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class SkinAttrSupport {
 
-    private static SkinAttrType getSupportAttrType(String attrName) {
+    @Nullable private static SkinAttrType getSupportAttrType(String attrName) {
         for (SkinAttrType attrType : SkinAttrType.values()) {
             if (attrType.getAttrType().equals(attrName))
                 return attrType;
@@ -23,10 +26,8 @@ public class SkinAttrSupport {
 
     /**
      * 传入activity，找到content元素，递归遍历所有的子View，根据tag命名，记录需要换肤的View
-     *
-     * @param activity
      */
-    public static List<SkinView> getSkinViews(Activity activity) {
+    @NotNull public static List<SkinView> getSkinViews(@NotNull Activity activity) {
         List<SkinView> skinViews = new ArrayList<>();
         ViewGroup content = activity.findViewById(android.R.id.content);
         addSkinViews(content, skinViews);
@@ -47,7 +48,7 @@ public class SkinAttrSupport {
         }
     }
 
-    public static SkinView getSkinView(View view) {
+    @Nullable public static SkinView getSkinView(@NotNull View view) {
         Object tag = view.getTag(R.id.skin_tag_id);
         if (tag == null) {
             tag = view.getTag();
@@ -64,7 +65,7 @@ public class SkinAttrSupport {
         return null;
     }
 
-    private static void changeViewTag(View view) {
+    private static void changeViewTag(@NotNull View view) {
         Object tag = view.getTag(R.id.skin_tag_id);
         if(tag == null ) {
             tag = view.getTag();
@@ -74,8 +75,8 @@ public class SkinAttrSupport {
     }
 
     //skin:left_menu_icon:src|skin:color_red:textColor
-    private static List<SkinAttr> parseTag(String tagStr) {
-        List<SkinAttr> skinAttrs = new ArrayList<SkinAttr>();
+    @NotNull private static List<SkinAttr> parseTag(String tagStr) {
+        List<SkinAttr> skinAttrs = new ArrayList<>();
         if (TextUtils.isEmpty(tagStr)) return skinAttrs;
 
         String[] items = tagStr.split("[|]");

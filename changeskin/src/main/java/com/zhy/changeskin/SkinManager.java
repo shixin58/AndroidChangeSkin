@@ -214,7 +214,8 @@ public class SkinManager {
     public void register(final Activity activity) {
         mActivities.add(activity);
 
-        activity.findViewById(android.R.id.content).post(new Runnable() {
+        View content = activity.findViewById(android.R.id.content);
+        content.post(new Runnable() {
             @Override
             public void run() {
                 apply(activity);

@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // apply发生在setContentView之后，通过post实现
         SkinManager.getInstance().register(this);
         setContentView(R.layout.activity_main);
         initView();
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initEvents() {
 
-        mListView = (ListView) findViewById(R.id.id_listview);
+        mListView = findViewById(R.id.id_listview);
         mListView.setAdapter(mAdapter = new ArrayAdapter<String>(this, -1, mDatas) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     convertView = LayoutInflater.from(MainActivity.this).inflate(R.layout.item, parent, false);
                 }
                 SkinManager.getInstance().injectSkin(convertView);
-                TextView tv = (TextView) convertView.findViewById(R.id.id_tv_title);
+                TextView tv = convertView.findViewById(R.id.id_tv_title);
                 tv.setText(getItem(position));
                 return convertView;
             }
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawerLayout);
+        mDrawerLayout = findViewById(R.id.id_drawerLayout);
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.id_left_menu_container);

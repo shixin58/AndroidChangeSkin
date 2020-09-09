@@ -2,7 +2,6 @@ package com.zhy.skinchangenow;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -21,6 +20,7 @@ import android.widget.Toast;
 import com.nineoldandroids.view.ViewHelper;
 import com.zhy.changeskin.SkinManager;
 import com.zhy.changeskin.callback.ISkinChangingCallback;
+import com.zhy.skinchangenow.sample.MyApplication;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ListView mListView;
-    private String mSkinPkgPath = Environment.getExternalStorageDirectory() + File.separator + "skin_plugin.apk";
+    // getExternalStorageDirectory需要WRITE_EXTERNAL_STORAGE权限，29被废弃。getExternalFilesDir不需要权限，卸载删除
+    private String mSkinPkgPath = MyApplication.INSTANCE.getExternalFilesDir(null) + File.separator + "skin_plugin.apk";
     private List<String> mDatas = new ArrayList<>(Arrays.asList("Activity", "Service", "Activity", "Service",
             "Activity", "Service", "Activity", "Service", "Activity", "Service", "Activity", "Service",
             "Activity", "Service", "Activity", "Service", "Activity", "Service", "Activity", "Service",
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // apply发生在setContentView之后，通过post实现
+        // bind发生在setContentView或inflate之后
+        // 动态资源如何设置tag？
+        // MVVM配合代码设置资源
         SkinManager.getInstance().register(this);
         setContentView(R.layout.activity_main);
         initView();
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.id_left_menu_container);
         if (fragment == null) {
-            fm.beginTransaction().add(R.id.id_left_menu_container, new MenuLeftFragment()).commit();
+            fm.beginTransaction().add(R.id.id_left_menu_container, new LeftMenuFragment()).commit();
         }
     }
 
